@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Box, Workflow, Video, Monitor, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -11,6 +11,7 @@ import SkillsSection from '../components/SkillsSection';
 
 const HomePage = () => {
   const { language } = useLanguage();
+  const location = useLocation();
   const t = translations[language];
   const [currentText, setCurrentText] = useState(0);
   const texts = [
@@ -25,6 +26,19 @@ const HomePage = () => {
     }, 3000);
     return () => clearInterval(interval);
   }, [texts.length]);
+
+  useEffect(() => {
+    if (location.state?.scrollToServices) {
+      const servicesSection = document.getElementById('services');
+      if (servicesSection) {
+        setTimeout(() => {
+          servicesSection.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+      // Clear the state
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
