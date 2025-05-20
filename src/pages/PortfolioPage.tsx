@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Instagram, Youtube, Box, ExternalLink } from 'lucide-react';
+import { Instagram, Youtube, Box, ExternalLink, Image, Camera } from 'lucide-react';
 
 const PortfolioPage = () => {
   const [activeCategory, setActiveCategory] = useState('all');
@@ -10,6 +10,21 @@ const PortfolioPage = () => {
     { id: 'design', name: 'Design Works', icon: <Instagram className="w-4 h-4" /> },
     { id: 'video', name: 'Video Edits', icon: <Youtube className="w-4 h-4" /> },
     { id: '3d', name: '3D Products', icon: <Box className="w-4 h-4" /> }
+  ];
+
+  const stockPlatforms = [
+    {
+      name: 'Freepik',
+      icon: <Image className="w-5 h-5" />,
+      url: 'https://www.freepik.com/author/koalagraphic',
+      description: 'Vector illustrations and design resources'
+    },
+    {
+      name: 'Shutterstock',
+      icon: <Camera className="w-5 h-5" />,
+      url: 'https://www.shutterstock.com/g/pandapediahome',
+      description: 'Professional stock photos and vectors'
+    }
   ];
 
   return (
@@ -28,6 +43,32 @@ const PortfolioPage = () => {
               Showcasing my journey through design, video editing, and 3D visualization.
             </p>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Stock Platforms Section */}
+      <section className="py-8 bg-white border-b border-gray-100">
+        <div className="section-container">
+          <div className="flex flex-wrap justify-center gap-4">
+            {stockPlatforms.map((platform) => (
+              <a
+                key={platform.name}
+                href={platform.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 px-4 py-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+              >
+                <div className="p-2 bg-indigo-50 rounded-lg">
+                  {platform.icon}
+                </div>
+                <div>
+                  <p className="font-medium text-gray-900">{platform.name}</p>
+                  <p className="text-sm text-gray-600">{platform.description}</p>
+                </div>
+                <ExternalLink className="w-4 h-4 text-gray-400" />
+              </a>
+            ))}
+          </div>
         </div>
       </section>
 

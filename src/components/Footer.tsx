@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Mail, Phone, Instagram, Linkedin, Youtube, MapPin, ArrowUpCircle } from 'lucide-react';
+import { Mail, Phone, Instagram, Linkedin, Youtube, MapPin, ArrowUpCircle, Camera, Image } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { translations } from '../translations';
 
@@ -34,6 +34,16 @@ const Footer = () => {
       name: 'YouTube',
       icon: <Youtube size={20} />,
       url: 'https://www.youtube.com/@MizuEvren'
+    },
+    {
+      name: 'Freepik',
+      icon: <Image size={20} />,
+      url: 'https://www.freepik.com/author/koalagraphic'
+    },
+    {
+      name: 'Shutterstock',
+      icon: <Camera size={20} />,
+      url: 'https://www.shutterstock.com/g/pandapediahome'
     }
   ];
 
