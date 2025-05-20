@@ -51,6 +51,13 @@ const Layout = () => {
     setLanguage(language === 'en' ? 'id' : 'en');
   };
 
+  const isActivePath = (path: string) => {
+    if (path === '/#services') {
+      return location.pathname === '/' && location.hash === '#services';
+    }
+    return location.pathname === path;
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <header 
@@ -73,11 +80,16 @@ const Layout = () => {
                   key={link.name} 
                   to={link.path}
                   onClick={link.onClick}
-                  className={({ isActive }) => 
-                    isActive ? 'nav-link-active' : 'nav-link'
-                  }
+                  className={`relative py-2 ${
+                    isActivePath(link.path)
+                      ? 'text-indigo-600 font-medium'
+                      : 'text-gray-700 hover:text-indigo-600 transition-colors duration-300'
+                  }`}
                 >
                   {link.name}
+                  {isActivePath(link.path) && (
+                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-indigo-600 rounded-full"></span>
+                  )}
                 </Link>
               ))}
               <button
@@ -117,16 +129,18 @@ const Layout = () => {
                     }
                     setIsMenuOpen(false);
                   }}
-                  className={({ isActive }) =>
-                    `block py-2 ${isActive ? 'text-indigo-600 font-medium' : 'text-gray-700'}`
-                  }
+                  className={`block py-2 px-3 rounded-lg ${
+                    isActivePath(link.path)
+                      ? 'bg-indigo-50 text-indigo-600 font-medium'
+                      : 'text-gray-700 hover:bg-gray-50'
+                  }`}
                 >
                   {link.name}
                 </Link>
               ))}
               <button
                 onClick={toggleLanguage}
-                className="flex items-center gap-2 py-2 text-gray-700 hover:text-indigo-600 transition-colors duration-300 w-full"
+                className="flex items-center gap-2 py-2 px-3 text-gray-700 hover:text-indigo-600 transition-colors duration-300 w-full"
               >
                 <Globe className="w-5 h-5" />
                 <span className="font-medium">
