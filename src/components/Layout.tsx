@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Outlet, NavLink, Link, useLocation } from 'react-router-dom';
+import { Outlet, NavLink, Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Globe } from 'lucide-react';
 import Footer from './Footer';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -9,6 +9,7 @@ const Layout = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const { language, setLanguage } = useLanguage();
 
   useEffect(() => {
@@ -27,7 +28,7 @@ const Layout = () => {
   const handleServicesClick = (e: React.MouseEvent) => {
     e.preventDefault();
     if (location.pathname !== '/') {
-      window.location.href = '/#services';
+      navigate('/', { state: { scrollToServices: true } });
     } else {
       const servicesSection = document.getElementById('services');
       servicesSection?.scrollIntoView({ behavior: 'smooth' });
